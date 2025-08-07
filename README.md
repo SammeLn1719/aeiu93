@@ -1,46 +1,100 @@
-# Getting Started with Create React App
+# Гео-приложение Leaflet с TypeScript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Интерактивное веб-приложение для работы с картами, построенное на React с использованием TypeScript и React-Leaflet.
 
-## Available Scripts
+## Функциональность
 
-In the project directory, you can run:
+- **Интерактивная карта**: Отображение карты с использованием OpenStreetMap
+- **Выделение области**: Возможность выделить прямоугольную область на карте путем перетаскивания мыши
+- **Координаты**: Отображение координат выделенной области в модальном окне
+- **Типизация**: Полная типизация с использованием TypeScript
 
-### `npm start`
+## Технологии
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **React 19** - Основной фреймворк
+- **TypeScript** - Типизация кода
+- **React-Leaflet** - React компоненты для Leaflet
+- **Leaflet** - JavaScript библиотека для интерактивных карт
+- **CSS3** - Стилизация компонентов
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Установка и запуск
 
-### `npm test`
+1. Клонируйте репозиторий:
+```bash
+git clone <repository-url>
+cd <project-directory>
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Установите зависимости:
+```bash
+npm install
+```
 
-### `npm run build`
+3. Запустите приложение в режиме разработки:
+```bash
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Откройте [http://localhost:3000](http://localhost:3000) в браузере
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Использование
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Откройте приложение в браузере
+2. Нажмите и перетащите мышью на карте для выделения области
+3. После выделения области автоматически откроется модальное окно с координатами
+4. В модальном окне отображаются координаты всех углов выделенной области и её центра
 
-### `npm run eject`
+## Структура проекта
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+src/
+├── app/
+│   ├── Leaflet.tsx    # Основной компонент карты
+│   └── Leaflet.css    # Стили для компонентов карты
+├── App.tsx            # Главный компонент приложения
+├── App.css            # Глобальные стили
+└── index.tsx          # Точка входа
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Компоненты
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Leaflet
+Основной компонент, содержащий:
+- `MapContainer` - контейнер карты
+- `AreaSelector` - компонент для выделения области
+- `CoordinatesModal` - модальное окно с координатами
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### AreaSelector
+Компонент для выделения прямоугольной области на карте:
+- Обрабатывает события мыши (mousedown, mousemove, mouseup)
+- Отображает прямоугольник выделения в реальном времени
+- Передает координаты выделенной области в родительский компонент
 
-## Learn More
+### CoordinatesModal
+Модальное окно для отображения координат:
+- Показывает координаты всех углов выделенной области
+- Отображает координаты центра области
+- Форматирует координаты с точностью до 6 знаков после запятой
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Типизация
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Проект полностью типизирован с использованием TypeScript:
+- Интерфейсы для props компонентов
+- Типизация событий и обработчиков
+- Типизация состояний и данных
+
+## Сборка для продакшена
+
+```bash
+npm run build
+```
+
+## Тестирование
+
+```bash
+npm test
+```
+
+## Лицензия
+
+MIT
