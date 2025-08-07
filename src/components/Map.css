@@ -1,0 +1,36 @@
+.map-container {
+  height: 60vh;
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+/* Ensure proper map display */
+.leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
+  z-index: 1;
+}
+
+/* Map wrapper */
+.leaflet-container > div {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.leaflet-div-icon {
+  background: transparent;
+  border: none;
+}
+
+/* Fix for map tiles loading */
+.leaflet-tile {
+  filter: none;
+}
+
+/* Ensure map controls are visible */
+.leaflet-control-container {
+  z-index: 1000;
+}
