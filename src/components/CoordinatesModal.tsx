@@ -10,6 +10,7 @@ export const CoordinatesModal: React.FC<CoordinatesModalProps> = ({
   onSave 
 }) => {
   const [areaName, setAreaName] = useState('');
+  const [copySuccess, setCopySuccess] = useState(false);
   
   if (!isOpen || !bounds) return null;
 
@@ -24,6 +25,40 @@ export const CoordinatesModal: React.FC<CoordinatesModalProps> = ({
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleSave();
+    }
+  };
+
+  const handleCopyCoordinates = async () => {
+    const coordinates = {
+      northWest: formatCoordinate(bounds.getNorthWest().lat, bounds.getNorthWest().lng),
+      northEast: formatCoordinate(bounds.getNorthEast().lat, bounds.getNorthEast().lng),
+      southWest: formatCoordinate(bounds.getSouthWest().lat, bounds.getSouthWest().lng),
+      southEast: formatCoordinate(bounds.getSouthEast().lat, bounds.getSouthEast().lng),
+      center: formatCoordinate(bounds.getCenter().lat, bounds.getCenter().lng)
+    };
+
+    const coordinatesText = `Координаты выделенной области:
+Северо-западный угол: ${coordinates.northWest}
+Северо-восточный угол: ${coordinates.northEast}
+Юго-западный угол: ${coordinates.southWest}
+Юго-восточный угол: ${coordinates.southEast}
+Центр области: ${coordinates.center}`;
+
+    try {
+      await navigator.clipboard.writeText(coordinatesText);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      console.error('Ошибка при копировании в буфер обмена:', err);
+      // Fallback для старых браузеров
+      const textArea = document.createElement('textarea');
+      textArea.value = coordinatesText;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
     }
   };
 
@@ -76,6 +111,15 @@ export const CoordinatesModal: React.FC<CoordinatesModalProps> = ({
           <div className="coordinates-section">
             <h3>Центр области:</h3>
             <p>{formatCoordinate(bounds.getCenter().lat, bounds.getCenter().lng)}</p>
+          </div>
+          
+          <div className="copy-section">
+            <button 
+              onClick={handleCopyCoordinates}
+              className={`copy-button ${copySuccess ? 'copy-success' : ''}`}
+            >
+              {copySuccess ? '✓ Скопировано!' : '📋 Копировать координаты'}
+            </button>
           </div>
         </div>
       </div>
