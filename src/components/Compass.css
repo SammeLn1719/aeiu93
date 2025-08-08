@@ -1,0 +1,118 @@
+.compass-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid #ddd;
+}
+
+.compass-rose {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+  border: 2px solid #ccc;
+}
+
+.compass-direction {
+  position: absolute;
+  font-weight: bold;
+  font-size: 12px;
+  color: #333;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.compass-north {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #d32f2f;
+  font-weight: 900;
+}
+
+.compass-south {
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #1976d2;
+  font-weight: 900;
+}
+
+.compass-east {
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #388e3c;
+  font-weight: 900;
+}
+
+.compass-west {
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #f57c00;
+  font-weight: 900;
+}
+
+.compass-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.compass-line {
+  position: absolute;
+  background: #666;
+  border-radius: 1px;
+}
+
+.compass-line-vertical {
+  width: 2px;
+  height: 60px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.compass-line-horizontal {
+  width: 60px;
+  height: 2px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.compass-line-diagonal {
+  width: 2px;
+  height: 42px;
+  background: #999;
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  transform-origin: center;
+}
+
+.compass-line-diagonal:nth-child(6) {
+  transform: translateX(-50%) rotate(-45deg);
+}

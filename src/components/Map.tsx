@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Rectangle } from 'react-leaflet';
 import { SavedArea } from '../types';
 import { MAP_CONFIG, SELECTION_STYLES } from '../constants';
 import { AreaSelector } from './AreaSelector';
+import { Compass } from './Compass';
 import './Map.css';
 
 interface MapProps {
@@ -18,6 +19,7 @@ export const Map: React.FC<MapProps> = ({
 }) => {
   return (
     <div className="map-container">
+      <Compass />
       <MapContainer 
         center={MAP_CONFIG.DEFAULT_CENTER} 
         zoom={MAP_CONFIG.DEFAULT_ZOOM} 

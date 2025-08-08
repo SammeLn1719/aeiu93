@@ -16,7 +16,8 @@ export const generateId = (): string => {
 export const isValidAreaSize = (bounds: LatLngBounds): boolean => {
   const latDiff = Math.abs(bounds.getNorth() - bounds.getSouth());
   const lngDiff = Math.abs(bounds.getEast() - bounds.getWest());
-  return latDiff > 0.001 && lngDiff > 0.001;
+  // Область должна быть достаточно большой по хотя бы одному измерению
+  return latDiff > 0.001 || lngDiff > 0.001;
 };
 
 export const serializeArea = (area: SavedArea) => ({

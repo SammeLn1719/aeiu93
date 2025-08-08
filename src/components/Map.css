@@ -1,9 +1,8 @@
 .map-container {
-  height: 60vh;
+  height: 100vh;
   width: 100%;
   border: 2px solid #ccc;
   border-radius: 8px;
-  min-height: 500px;
   overflow: hidden;
 }
 
@@ -14,11 +13,6 @@
   z-index: 1;
 }
 
-/* Map wrapper */
-.leaflet-container > div {
-  height: 100% !important;
-  width: 100% !important;
-}
 
 .leaflet-div-icon {
   background: transparent;
@@ -33,4 +27,22 @@
 /* Ensure map controls are visible */
 .leaflet-control-container {
   z-index: 1000;
+}
+
+/* Prevent text selection during area selection */
+.leaflet-container {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Prevent context menu on map */
+.leaflet-container {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

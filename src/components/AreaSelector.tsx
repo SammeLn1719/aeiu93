@@ -9,49 +9,51 @@ export const AreaSelector: React.FC<AreaSelectorProps> = ({ onAreaSelected, onSe
   const [isSelecting, setIsSelecting] = useState(false);
   const [startPoint, setStartPoint] = useState<LatLng | null>(null);
   const [endPoint, setEndPoint] = useState<LatLng | null>(null);
-  const [hasMoved, setHasMoved] = useState(false);
   
   useMapEvents({
+    contextmenu: (e) => {
+      // Предотвращаем появление контекстного меню
+      e.originalEvent.preventDefault();
+      e.originalEvent.stopPropagation();
+    },
     mousedown: (e) => {
-      console.log('Mouse down:', e.latlng);
-      if (!isSelecting) {
-        setIsSelecting(true);
-        onSelectionChange(true);
-        setStartPoint(e.latlng);
-        setEndPoint(e.latlng);
-        setHasMoved(false);
+      // Обрабатываем только левую кнопку мыши
+      if (e.originalEvent.button === 0) {
+        console.log('Mouse down:', e.latlng, 'Button:', e.originalEvent.button);
+        if (!isSelecting) {
+          setIsSelecting(true);
+          onSelectionChange(true);
+          setStartPoint(e.latlng);
+          setEndPoint(e.latlng);
+          console.log('Started selection');
+        }
       }
     },
     mousemove: (e) => {
       if (isSelecting && startPoint) {
         setEndPoint(e.latlng);
-        setHasMoved(true);
       }
     },
     mouseup: (e) => {
-      console.log('Mouse up:', e.latlng, 'Has moved:', hasMoved);
-      if (isSelecting && startPoint && endPoint && hasMoved) {
-        const bounds = new LatLngBounds(startPoint, endPoint);
-        
-        if (isValidAreaSize(bounds)) {
-          console.log('Selected bounds:', bounds);
-          onAreaSelected(bounds);
-        } else {
-          console.log('Area too small, ignoring selection');
+      // Обрабатываем только левую кнопку мыши
+      if (e.originalEvent.button === 0) {
+        console.log('Mouse up:', e.latlng);
+        if (isSelecting && startPoint && endPoint) {
+          const bounds = new LatLngBounds(startPoint, endPoint);
+          
+          if (isValidAreaSize(bounds)) {
+            console.log('Selected bounds:', bounds);
+            onAreaSelected(bounds);
+          } else {
+            console.log('Area too small, ignoring selection');
+          }
         }
         
+        // Сбрасываем состояние
         setIsSelecting(false);
         onSelectionChange(false);
         setStartPoint(null);
         setEndPoint(null);
-        setHasMoved(false);
-      } else if (isSelecting) {
-        // Если не двигали мышь, просто отменяем выделение
-        setIsSelecting(false);
-        onSelectionChange(false);
-        setStartPoint(null);
-        setEndPoint(null);
-        setHasMoved(false);
       }
     },
     click: (e) => {

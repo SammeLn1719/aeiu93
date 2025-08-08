@@ -33,7 +33,7 @@ export default function Leaflet() {
     <div className="leaflet-container">
       <div className="instructions">
         <h2>Гео-приложение Leaflet</h2>
-        <p>Нажмите и перетащите мышью для выделения области на карте</p>
+        <p>Нажмите <strong>левой кнопкой мыши</strong> и перетащите для выделения области на карте</p>
         <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '10px' }}>
           Статус: {isSelecting ? 'Выделение области... (перетащите для завершения)' : 'Готов к выделению'}
         </p>
@@ -48,7 +48,16 @@ export default function Leaflet() {
         onSelectionChange={handleSelectionChange}
       />
 
-      <SavedAreasList areas={savedAreas} onDelete={deleteArea} />
+      <div style={{ 
+        position: 'absolute', 
+        bottom: '20px', 
+        left: '20px', 
+        zIndex: 1000,
+        maxHeight: '300px',
+        overflowY: 'auto'
+      }}>
+        <SavedAreasList areas={savedAreas} onDelete={deleteArea} />
+      </div>
 
       <CoordinatesModal
         isOpen={isModalOpen}
